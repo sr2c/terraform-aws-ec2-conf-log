@@ -1,0 +1,161 @@
+---
+name: terraform-aws-ec2-conf-log
+tags:
+  - aws
+  - terraform
+  - tor
+  - ec2
+  - s3
+  - cloud-init
+categories:
+  - terraform-modules/supported
+license: BSD2
+gitlab_repo: sr2c/terraform-aws-ec2-conf-log
+description: |-
+  Terraform module to deploy a pair of S3 buckets, one for configuration and one for logging, along with the necessary
+  IAM role and instance profile to allow for EC2 instances to interact with the buckets. The instance profile will also
+  include the `AmazonSSMManagedInstanceCore` policy to allow the use of SSM.
+  
+  ![Resource Overview Diagram](./docs/terraform-aws-ec2-conf-log.png)
+usage: |-
+  ### Simple Example
+
+  ```hcl
+  terraform {
+    required_providers {
+      aws = {
+        source  = "hashicorp/aws"
+        version = "~> 4.0"
+      }
+    }
+  }
+  
+  provider "aws" {
+    region = "us-east-2"
+  }
+  
+  module "ec2_conf_log" {
+    source = "./.."
+    namespace = "eg"
+    name = "ecl"
+  }
+  
+  data "aws_availability_zones" "available" {
+    state = "available"
+  }
+  
+  data "aws_vpc" "default" {
+    default = true
+  }
+  
+  data "aws_subnet" "default" {
+    availability_zone = data.aws_availability_zones.available.names[0]
+    default_for_az = true
+  }
+  
+  data "aws_ami" "ubuntu" {
+    most_recent = true
+  
+    filter {
+      name   = "name"
+      values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    }
+  
+    filter {
+      name   = "virtualization-type"
+      values = ["hvm"]
+    }
+  
+    owners = ["099720109477"] # Canonical
+  }
+  
+  module "instance" {
+    source                      = "cloudposse/ec2-instance/aws"
+    version                     = "0.45.0"
+  
+    subnet                      = data.aws_subnet.default.id
+    vpc_id                      = data.aws_vpc.default.id
+    ami                         = data.aws_ami.ubuntu.id
+    ami_owner                   = "099720109477"
+    assign_eip_address          = true
+    associate_public_ip_address = true
+    disable_api_termination     = false
+    instance_type               = "t3.medium"
+    instance_profile            = module.ec2_conf_log.instance_profile_name
+  
+    namespace = "eg"
+    name = "ecl"
+  }
+  ```
+  
+  ### Perform configuration
+  
+  While this module does not prescribe a particular way of configuring the instances, one approach is to use a
+  cron job to regularly update the instance from the S3 bucket. It is important here to consider race conditions
+  where only part of an update has been pushed to the S3 bucket but not all objects are there yet. It may make
+  sense to upload an archive to S3 and download that as a single object rather than uploading multiple objects.
+  
+  Example crontab:
+  
+  ```crontab
+  */2 * * * * root /bin/bash /root/configure.sh &>/dev/null
+  ```
+  
+  Example configurations script:
+  
+  ```shell
+  #!/usr/bin/env bash
+
+  set -e
+
+  aws s3 cp s3://example-bucket-name/default /etc/nginx/sites-enabled/default
+
+  systemctl reload-or-restart nginx
+  ```
+  
+  The bucket name can be templated at instance creation time, with the crontab and script installed via cloud-init.
+  
+  ### logrotate
+  
+  While this module does not prescribe a particular way of submitting logs from the instance to the logs bucket,
+  one method is to use logrotate. The following example works on an Ubuntu instance to rotate all the logs in an
+  EOTK project and upload only the nginx access logs to the logs bucket (excluding error logs and others):
+  
+  ```logrotate
+  /home/ubuntu/eotk/projects.d/sites.d/log.d/*.log {
+    su ubuntu ubuntu
+    create 644 ubuntu ubuntu
+    hourly
+    dateext
+    # 1 week. 1 rotation per hour = 168 hours/rotations per week
+    rotate 168
+    missingok
+    ifempty
+    compress
+    lastaction
+      # run once after all files are rotated
+      ROTATED_DIR="$(dirname "$1")"
+      INCLUDE_PATTERN="nginx-access*.log-*.gz"
+      BUCKET_NAME="example-bucket-name"
+
+      TOKEN=`/usr/bin/curl --silent --request PUT "http://169.254.169.254/latest/api/token" --header "X-aws-ec2-metadata-token-ttl-seconds: 60"`
+      REGION=`/usr/bin/curl --silent --header "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/dynamic/instance-identity/document | grep region | cut -d\" -f4`
+      INSTANCE_ID=`/usr/bin/curl --silent --header "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/dynamic/instance-identity/document | grep instanceId | cut -d\" -f4`
+
+      /usr/bin/aws s3 sync "$ROTATED_DIR/" "s3://$BUCKET_NAME/$INSTANCE_ID/" --region $REGION --exclude "*" --include "$INCLUDE_PATTERN" --quiet
+
+      /home/ubuntu/eotk/eotk --local nxreload -a
+      /home/ubuntu/eotk/eotk --local torreload -a
+    endscript
+  }
+  ```
+
+  The bucket name can be templated at instance creation time, with the logrotate package and script installed via
+  cloud-init.
+include:
+  - docs/terraform.md
+  - docs/targets.md
+contributors:
+  - name: irl
+    gitlab: irlxyz
+    gitlab_id: 5895869
