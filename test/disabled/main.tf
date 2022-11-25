@@ -5,5 +5,6 @@ provider "aws" {
 
 module "conf_log" {
   source = "./../.."
+  name = "enabled"
   enabled = false
 }
