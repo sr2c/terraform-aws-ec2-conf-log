@@ -7,7 +7,7 @@ module "conf_bucket" {
   enabled            = local.configuration_bucket_enabled
   versioning_enabled = false
   context            = module.this
-  attributes         = ["conf"]
+  attributes         = ["config"]
 }
 
 data "aws_iam_policy_document" "conf_bucket" {
