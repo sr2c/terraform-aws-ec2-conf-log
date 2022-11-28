@@ -1,0 +1,11 @@
+image: alpine:3
+
+stages:
+  - test
+
+test:lint:
+  stage: test
+  script:
+    - make init
+    - make git/submodules-update  ## Requires init before target available
+    - make lint                   ## Run Terraform linters and validation

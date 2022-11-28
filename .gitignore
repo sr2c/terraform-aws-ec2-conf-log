@@ -38,3 +38,9 @@ terraform.rc
 
 # Terraform lock
 .terraform.lock.hcl
+
+# IntelliJ IDEA
+.idea
+
+# pycache
+test/__pycache__
