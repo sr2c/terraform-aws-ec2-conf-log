@@ -4,9 +4,14 @@ import tftest
 
 @pytest.fixture
 def plan():
-    tf = tftest.TerraformTest(tfdir="test/config_disabled")
+    tf = tftest.TerraformTest(tfdir="test/tf")
     tf.setup()
-    return tf.plan(output=True)
+    return tf.plan(output=True, tf_vars={
+        "enabled": "true",
+        "config_disabled": "true",
+        "log_disabled": "false",
+        "ssm_disabled": "false"
+    })
 
 
 def test_config_disabled(plan):
