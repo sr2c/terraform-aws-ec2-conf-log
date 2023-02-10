@@ -1,15 +1,15 @@
-<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.11 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.40.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.54.0 |
 
 ## Modules
 
@@ -66,7 +66,8 @@
 |------|-------------|
 | <a name="output_conf_bucket_arn"></a> [conf\_bucket\_arn](#output\_conf\_bucket\_arn) | The ARN for the configuration (read-only) S3 bucket |
 | <a name="output_conf_bucket_id"></a> [conf\_bucket\_id](#output\_conf\_bucket\_id) | The ID for the configuration (read-only) S3 bucket |
+| <a name="output_iam_role_arn"></a> [iam\_role\_arn](#output\_iam\_role\_arn) | The ARN for the role attached to the instance profile |
+| <a name="output_iam_role_name"></a> [iam\_role\_name](#output\_iam\_role\_name) | The name of the role attached to the instance profile |
 | <a name="output_instance_profile_name"></a> [instance\_profile\_name](#output\_instance\_profile\_name) | The name for the IAM instance profile with the attached policies (bucket access and SSM) |
 | <a name="output_log_bucket_arn"></a> [log\_bucket\_arn](#output\_log\_bucket\_arn) | The ARN for the logs (read/write) S3 bucket |
 | <a name="output_log_bucket_id"></a> [log\_bucket\_id](#output\_log\_bucket\_id) | The ID for the logs (read/write) S3 bucket |
-<!-- markdownlint-restore -->

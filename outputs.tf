@@ -1,3 +1,13 @@
+output "iam_role_arn" {
+  value       = local.enabled ? aws_iam_role.this[0].arn : null
+  description = "The ARN for the role attached to the instance profile"
+}
+
+output "iam_role_name" {
+  value       = local.enabled ? aws_iam_role.this[0].name : null
+  description = "The name of the role attached to the instance profile"
+}
+
 output "conf_bucket_arn" {
   value       = local.configuration_bucket_enabled ? module.conf_bucket.bucket_arn : null
   description = "The ARN for the configuration (read-only) S3 bucket"
