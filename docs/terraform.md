@@ -1,3 +1,4 @@
+<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |
@@ -9,7 +10,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.54.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.40.0 |
 
 ## Modules
 
@@ -71,3 +72,4 @@
 | <a name="output_instance_profile_name"></a> [instance\_profile\_name](#output\_instance\_profile\_name) | The name for the IAM instance profile with the attached policies (bucket access and SSM) |
 | <a name="output_log_bucket_arn"></a> [log\_bucket\_arn](#output\_log\_bucket\_arn) | The ARN for the logs (read/write) S3 bucket |
 | <a name="output_log_bucket_id"></a> [log\_bucket\_id](#output\_log\_bucket\_id) | The ID for the logs (read/write) S3 bucket |
+<!-- markdownlint-restore -->
