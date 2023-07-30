@@ -2,7 +2,7 @@
 
 module "conf_bucket" {
   source             = "cloudposse/s3-bucket/aws"
-  version            = "0.49.0"
+  version            = "3.1.2"
   acl                = "private"
   enabled            = local.configuration_bucket_enabled
   versioning_enabled = false
