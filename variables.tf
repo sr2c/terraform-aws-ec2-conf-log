@@ -15,3 +15,12 @@ variable "disable_ssm" {
   default     = false
   type        = bool
 }
+
+variable "log_groups_root" {
+  description = <<EOT
+Attach a policy to the instance profile to allow RW access to this CloudWatch log groups with this root prefix.
+In the default case, no policy is attached for CloudWatch log group access.
+EOT
+  default     = null
+  type        = string
+}
