@@ -152,7 +152,7 @@ usage: |-
 
   The bucket name can be templated at instance creation time, with the logrotate package and script installed via
   cloud-init.
-includes:
+include:
   - docs/terraform-split.md
   - docs/targets.md
 contributors:
