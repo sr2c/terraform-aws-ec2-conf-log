@@ -152,8 +152,8 @@ usage: |-
 
   The bucket name can be templated at instance creation time, with the logrotate package and script installed via
   cloud-init.
-include:
-  - docs/terraform.md
+includes:
+  - docs/terraform-split.md
   - docs/targets.md
 contributors:
   - name: irl

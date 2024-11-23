@@ -1,5 +1,7 @@
 .build-harness
+.build-harness-ext
 build-harness
+build-harness-extensions
 
 # Local .terraform directories
 **/.terraform/*
