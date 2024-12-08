@@ -165,7 +165,9 @@ EOTK project and upload only the nginx access logs to the logs bucket (excluding
 ```
 
 The bucket name can be templated at instance creation time, with the logrotate package and script installed via
-cloud-init.<!-- markdownlint-disable -->
+cloud-init.
+
+<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |
@@ -255,6 +257,8 @@ these inputs have been seperated here to make it clearer which inputs are specif
 | <a name="output_log_bucket_arn"></a> [log\_bucket\_arn](#output\_log\_bucket\_arn) | The ARN for the logs (read/write) S3 bucket |
 | <a name="output_log_bucket_id"></a> [log\_bucket\_id](#output\_log\_bucket\_id) | The ID for the logs (read/write) S3 bucket |
 <!-- markdownlint-restore -->
+
+
 <!-- markdownlint-disable -->
 ## Makefile Targets
 ```text
@@ -267,6 +271,7 @@ Available targets:
 
 ```
 <!-- markdownlint-restore -->
+
 ## Share the Love
 
 Like this project? Please give it a ★ on
