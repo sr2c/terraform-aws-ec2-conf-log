@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.8] - 2025-01-16
+
+### 🐛 Bug Fixes
+
+- Allow null log root to disable cloudwatch policy
+
 ## [0.0.7] - 2024-12-08
 
 ### 💼 Other
@@ -16,6 +22,7 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Sync .gitlab-ci.yml
+- Release 0.0.7
 
 ## [0.0.6] - 2024-12-07
 
