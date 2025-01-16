@@ -1,9 +1,22 @@
+
+
+
+
+
+
+
+
 <!-- markdownlint-disable -->
+
 # terraform-aws-ec2-conf-log
+
+
 [![pipeline status](https://gitlab.com/sr2c/terraform-aws-ec2-conf-log/badges/main/pipeline.svg?ignore_skipped=true&style=flat-square)](https://gitlab.com/sr2c/terraform-aws-ec2-conf-log/-/pipelines)
 [![latest release](https://gitlab.com/sr2c/terraform-aws-ec2-conf-log/-/badges/release.svg?style=flat-square)](https://gitlab.com/sr2c/terraform-aws-ec2-conf-log/-/tags)
 [![gitlab stars](https://img.shields.io/gitlab/stars/sr2c/terraform-aws-ec2-conf-log?style=flat-square)](https://gitlab.com/sr2c/terraform-aws-ec2-conf-log/-/starrers)
 [![gitlab forks](https://img.shields.io/gitlab/forks/sr2c/terraform-aws-ec2-conf-log?style=flat-square)](https://gitlab.com/sr2c/terraform-aws-ec2-conf-log/-/forks)
+
+  
 <!-- markdownlint-restore -->
 [![SR2 Communications Limited][logo]](https://www.sr2.uk/)
 
@@ -22,14 +35,37 @@
 
 -->
 
+
+
+
 Terraform module to deploy a pair of S3 buckets, one for configuration and one for logging, along with the necessary
 IAM role and instance profile to allow for EC2 instances to interact with the buckets. The instance profile will also
 include the `AmazonSSMManagedInstanceCore` policy to allow the use of SSM.
 
 ![Resource Overview Diagram](./docs/terraform-aws-ec2-conf-log.png)
 
+
+
+
 ---
+
+
+
+
+
+
+
 It's 100% Open Source and licensed under the [BSD 2-clause License](LICENSE).
+
+
+
+
+
+
+
+
+
+
 
 ## Usage
 ### Simple Example
@@ -167,6 +203,14 @@ EOTK project and upload only the nginx access logs to the logs bucket (excluding
 The bucket name can be templated at instance creation time, with the logrotate package and script installed via
 cloud-init.
 
+
+
+
+
+
+
+
+
 <!-- markdownlint-disable -->
 ## Requirements
 
@@ -272,11 +316,17 @@ Available targets:
 ```
 <!-- markdownlint-restore -->
 
+
+
+
 ## Share the Love
 
 Like this project? Please give it a ★ on
 [our GitLab](https://gitlab.com/sr2c/terraform-aws-ec2-conf-log)!
 (it helps us **a lot**)
+
+
+
 
 ## Help
 
@@ -297,6 +347,7 @@ If you don't have an IRC client already, you can get started with the
 [web client](https://web.libera.chat/#sr2).
 This is the best place to talk shop, ask questions, solicit feedback, and work
 together as a community to build on our open source code.
+
 
 ## Contributing
 
@@ -328,9 +379,21 @@ We have adopted the
 [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 specification for the formatting of commit messages.
 
+
+
+
+
+
 ## Copyright
 
-Copyright © 2021-2024 SR2 Communications Limited
+Copyright © 2021-2025 SR2 Communications Limited
+
+
+
+
+
+
+
 
 ## License
 
@@ -359,6 +422,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 
+
 ## Trademarks
 
 All other trademarks referenced herein are the property of their respective owners.
@@ -378,16 +442,28 @@ We offer [paid support][website] on all of our projects.
 Check out [our other projects][gitlab], or [hire us][website] to get support
 with using our projects.
 
+
+
 ## Contributors
 
 <!-- markdownlint-disable -->
 |  [![irl][irlxyz_avatar]][irlxyz_homepage]<br/>[irl][irlxyz_homepage] |
 |---|
 
+
+
   [irlxyz_homepage]: https://gitlab.com/irlxyz
+
+
   [irlxyz_avatar]: https://gitlab.com/uploads/-/system/user/avatar/5895869/avatar.png?width=130
 
-<!-- markdownlint-restore --><!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+
+
+
+
+<!-- markdownlint-disable -->
   [logo]: https://www.sr2.uk/readme/logo.png
   [website]: https://www.sr2.uk/?utm_source=gitlab&utm_medium=readme&utm_campaign=sr2c/terraform-aws-ec2-conf-log&utm_content=website
   [gitlab]: https://go.sr2.uk/gitlab?utm_source=gitlab&utm_medium=readme&utm_campaign=sr2c/terraform-aws-ec2-conf-log&utm_content=gitlab

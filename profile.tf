@@ -65,6 +65,7 @@ data "aws_iam_policy_document" "send_logs_to_cloudwatch" {
 }
 
 resource "aws_iam_policy" "send_logs_to_cloudwatch" {
+  count       = var.log_groups_root != null ? 1 : 0
   name        = "cloudwatch-logs-${module.this.id}"
   description = "Policy that allows instance to send logs to cloudwatch"
   policy      = data.aws_iam_policy_document.send_logs_to_cloudwatch[0].json
@@ -74,7 +75,7 @@ resource "aws_iam_policy" "send_logs_to_cloudwatch" {
 resource "aws_iam_role_policy_attachment" "send_logs_to_cloudwatch" {
   count      = var.log_groups_root != null ? 1 : 0
   role       = aws_iam_role.this[0].name
-  policy_arn = aws_iam_policy.send_logs_to_cloudwatch.arn
+  policy_arn = aws_iam_policy.send_logs_to_cloudwatch[0].arn
 }
 
 resource "aws_iam_instance_profile" "this" {
